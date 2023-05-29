@@ -1,0 +1,121 @@
+package Mystack;
+import java.util.ArrayList;
+
+public class MyStack<T> {
+    private ArrayList<T> list;
+    private int size=0;
+
+    public MyStack() {
+        list=new ArrayList<>();
+    }
+
+    public T push(T o)
+    {
+        list.add(o);
+        size++;
+        return o;
+    }
+
+    public int size()
+    {
+        return size;
+    }
+
+    public T pop()
+    {
+        size--;
+        return list.remove(size);
+    }
+
+    public void print()
+    {
+        System.out.println(list);
+    }
+
+}
+
+package Mystack;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class MyStackTest {
+
+    @Test
+    void push() {
+        MyStack<String> ms=new MyStack<>();
+        ms.push("String");
+        ms.push("Integer");
+        ms.push("boolean");
+        assertEquals("boolean",ms.pop());
+        assertEquals("Integer",ms.pop());
+        assertEquals("String",ms.pop());
+    }
+
+    @Test
+    void size() {
+        MyStack<Integer> ms=new MyStack<>();
+        ms.push(123);
+        assertEquals(1,ms.size());
+        ms.push(456);
+        assertEquals(2,ms.size());
+        ms.push(789);
+        assertEquals(3,ms.size());
+    }
+
+    @Test
+    void pop() {
+        MyStack<Student> ms=new MyStack<>();
+        ms.push(new Student("zhangsan",23));
+        ms.push(new Student("lisi",24));
+        ms.push(new Student("wangwu",25));
+        ms.push(new Student("qianliu",26));
+        assertEquals(new Student("qianliu",26),ms.pop());
+        assertEquals(new Student("wangwu",25),ms.pop());
+        assertEquals(new Student("lisi",24),ms.pop());
+        assertEquals(new Student("zhangsan",23),ms.pop());
+    }
+}
+package Mystack;
+
+import java.util.Objects;
+
+public class Student {
+    private String name;
+    private int age;
+    public Student() {
+    }
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public String toString() {
+        return "Student{name = " + name + ", age = " + age + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age && Objects.equals(name, student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+}
